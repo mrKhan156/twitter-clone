@@ -23,18 +23,6 @@ form {
   padding: 3px 10px;
 }
 
-.password {
-  width: 100%;
-  display: flex;
-  gap: 12px;
-}
-
-.password input {
-  width: 100%;
-  border: none;
-  padding: 3px 10px;
-}
-
 .wrapper {
   width: 500px;
   max-width: 80%;
@@ -54,13 +42,13 @@ form {
 }
 
 .error {
-  display: none;
   color: red;
   margin: 0;
-  text-align-last: left;
+  -moz-text-align-last: left;
+       text-align-last: left;
 }
 
-input[type='submit'] {
+input[type=submit] {
   margin: 10px;
   width: 100%;
   background: #00acee;

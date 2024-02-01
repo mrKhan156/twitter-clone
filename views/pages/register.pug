@@ -8,7 +8,7 @@ block css
         link(rel="stylesheet", href="/css/login.css")
 
 block jsScript 
-        script (src='/js/login.js' defer)
+        script(src='/js/login.js' defer)
 
 
 
@@ -17,59 +17,65 @@ block body
         .login-wrapper
                 h2 Register 
                 
-                form(action="/register",method="post" enctype='multipart/from-data')
-                        //- for first name
+                form(action="/register",method="post" enctype='multipart/form-data')
+                     
                         div(class="login" )
                                 label(for="firstName")
-                                        b First Name 
-                                input#firstName(type="text" ,class="from-control" placeholder="Enter Your FirstName" name="firstName" required='' )
-                        p.error.firstName-error FirstName is require
-
+                                        b First Name
+                                input#firstName(type="text" ,value=user ? user.firstName :'' class="from-control" placeholder="Enter Your First Name" name="firstName", required='' )
+                                if error.firstName
+                                        p.error #{error.firstName.msg}
 
                         //- for last name
-                        div(class="login" )
+                        div(class="login")
                                 label(for="lastName")
                                         b Last Name 
-                                input#lastName(type="text" ,class="from-control" placeholder="Enter Your lastName" name="lastName" required='' )
-                        p.error.lastName-error lastName is require
+                                input#lastName(type="text" ,value=user ? user.lastName :'' class="from-control" placeholder="Enter Your lastName" name="lastName", required='' )
+                        if error.lastName
+                                 p.error.lastName-error #{error.lastName.msg} 
 
 
                         //- for user name
                         div(class="login" )
                                 label(for="userName")
                                         b User Name 
-                                input#userName(type="text" ,class="from-control" placeholder="Enter Your userName" name="userName" required='' )
-                        p.error.userName-error userName is require
+                                input#userName(type="text" ,value=user ? user.username :''  class="from-control" placeholder="Enter Your userName" name="userName", required='' )
+                        if error.username
+                                p.error.username-error #{error.username.msg} 
 
 
                         //- for email
                         div(class="login" )
                                 label(for="email")
                                         b Email
-                                input#email(type="text" ,class="from-control" placeholder="Enter Your email" name="email" required='' )
-                        p.error.email-error Email is require
+                                input#email(type="text" ,value=user ? user.email :'' class="from-control" placeholder="Enter Your email" name="email", required='' )
+                        if error.email
+                                p.error.email-error #{error.email.msg} 
 
 
                         //- for password
                         div(class="login")
                                 label(for="password")
                                         b Password  
-                                input#password(type="password" ,class="from-control" placeholder="Enter Your password" name="password" required='' ) 
-                        p.error.password-error Password is invalid
+                                input#password(type="password" ,value=user && !error.password && !error.confirmPassword ? user.password :'' class="from-control" placeholder="Enter Your password" name="password", required='' ) 
+                        if error.password
+                                p.error.password-error #{error.password.msg} 
 
 
                         //- for confirm password
                         div(class="login")
                                 label(for="confirmPassword")
                                         b Confirm Password  
-                                input#confirmPassword(type="password" ,class="from-control" placeholder="Enter Your password" name="confirmPassword" required='' ) 
-                        p.error.confirmPassword-error Password is invalid
-                        //- profil picture
+                                input#confirmPassword(type="password" ,value=user ? user.confirmPassword :'' class="from-control" placeholder="Enter Your password" name="confirmPassword", required='' ) 
+                        if error.confirmPassword
+                                p.error.profileAvatar-error #{error.confirmPassword.msg} 
+                        //- profile picture
                         div(class="login")
                                 label(for="profileAvatar")
                                         b Picture 
-                                input#profileAvatar(type="file" ,accept="jpg, .png, .jpeg" class="from-control" placeholder="Enter Your password" name="profileAvatar" required='' ) 
-                        p.error.profileAvatar-error Password is invalid
+                                input#profileAvatar(type="file" ,accept="jpg, .png, .jpeg" class="from-control" placeholder="Enter Your password" name="profileAvatar", required='' ) 
+                        if error.profileAvatar
+                                p.error.profileAvatar-error #{error.profileAvatar.msg} 
 
                         //- submit
                         input(type="submit" ,class="from-control" value="Register")

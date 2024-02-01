@@ -13,17 +13,25 @@ const getLogin = (req, res, next) => {
 
 const getRegister = (req, res, next) => {
   try {
-    res.render('pages/register');
+    res.render('pages/register', {
+      error: {},
+      user: {},
+    });
   } catch (error) {
     next(error);
   }
 };
 // register controller
 const register = (req, res, next) => {
-  console.log(req.file);
-  console.log(req.files);
-
-  console.log(req.body);
+  if (Object.keys(req.error).length !== 0) {
+    console.log(req.error);
+    return res.render('pages/register', {
+      user: req.body,
+      error: req.error,
+    });
+  } else {
+    console.log(req.body);
+  }
 };
 
 module.exports = {
