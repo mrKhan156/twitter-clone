@@ -6,6 +6,7 @@ block title
 
 block css
         link(rel="stylesheet", href="/css/login.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css")
 
 block jsScript 
         script(src='/js/login.js' defer)
@@ -22,16 +23,22 @@ block body
                         div(class="login" )
                                 label(for="username")
                                         b Username 
-                                input#username(type="text" ,class="from-control" placeholder="Enter Your username or email" name="username" required='' )
-                        p.error.username-error Username is require
+                                input#username(type="text" class="from-control" placeholder="Enter Your username or email" name="username", value=user.username)
+                        if error.username
+                                p.error #{error.username.msg}
+                   
 
 
                         //- for password
                         div(class="login")
                                 label(for="password")
                                         b Password  
-                                input#password(type="text" ,class="from-control" placeholder="Enter Your password" name="password" required='' ) 
-                        p.error.password-error Password is invalid
+                                .logPassContainer 
+                                        input#password(type="password" ,class="from-control" placeholder="Enter Your password" name="password", value=error.password ? "": user.password )
+                                        span#passwordIcon 
+                                                i.fas.fa-eye 
+                        if error.password
+                                p.error #{error.password.msg}
 
                         //- submit
                         input(type="submit" ,class="from-control" value="Login")
@@ -39,3 +46,5 @@ block body
                 //- link
                 p New User?
                         a(href="/register") Register Here
+                p Forget password?
+                        a(href="/resetPassword") Click Here

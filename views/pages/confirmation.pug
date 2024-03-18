@@ -1,0 +1,19 @@
+extends ../layouts/header.pug
+block css
+        link(rel="stylesheet", href="/css/confirmaition.css")
+block title 
+    title= title 
+
+
+block body 
+    main 
+        .card
+            div(style='border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;')
+                i.checkmark &check;
+            h1 Success
+            p
+                | We have sent email to 
+                a #{email} 
+                |  to verify your email address. After receiving the email follow the link provided to complete your registration.
+
+            

@@ -5,3 +5,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.deleteBtn {
+  background-color: unset;
+  border: none;
+  i {
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,42 @@
+extends ./../layouts/header.pug
+
+
+block title 
+        title= title 
+
+block css
+        link(rel="stylesheet", href="/css/login.css")
+
+block jsScript 
+        script(src='/js/verifyOtp.js' defer)
+
+
+
+block body 
+        .wrapper 
+                .login-wrapper
+                        h2 Verify Otp 
+                        p We have send a OTP to #{otp.email} check inbox or spam box.
+                
+                        form(action="/otpVerification",method="post")
+                                div(class="login" )
+                                        label(for="username")
+                                                b OTP
+                                        input#username(type="text" class="from-control" placeholder="Enter Your Otp" name="otp", value=otp.value)
+
+                                        input(type="hidden", name="otpId" value=otp.otpId)
+                                        input(type="hidden", name="username" value=otp.email)
+                                if error.otp
+                                        p.error #{error.otp.msg}
+                                
+                                input(type="submit" ,class="from-control" value="Verify Now")
+
+                        p#countDown Expire in 
+                                span.text-warning 1.59
+                        .d-flex.align-item-center.justify-content-center 
+                                form(action="/resetPassword" , method="post")
+                                        input(type="hidden", name="username" value=otp.email)
+                                        input(type="submit",class="from-control" value="Resend Otp")
+                        .footer_link 
+                                p.disclaim.mt-3 Need Login?
+                                        a(href="/login") Login Here 

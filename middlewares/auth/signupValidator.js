@@ -1,4 +1,5 @@
 const { check } = require('express-validator');
+const User = require('../../modles/User');
 
 const signupValidator = () => {
   return [
@@ -45,7 +46,7 @@ const signupValidator = () => {
           throw err;
         }
       })
-      .withMessage('email is already in use'),
+      .withMessage('Email is already in use'),
     //password
     check('password')
       .notEmpty()
@@ -54,7 +55,7 @@ const signupValidator = () => {
       .withMessage('Password is not strong'),
 
     //confirm password
-    check('ConfirmPassword')
+    check('confirmPassword')
       .notEmpty()
       .withMessage('Confirm password is Require!')
       .isStrongPassword()
@@ -62,9 +63,9 @@ const signupValidator = () => {
       .custom((val, { req }) => {
         const pass = req.body.password;
         if (val === pass) {
-          return false;
-        } else {
           return true;
+        } else {
+          return false;
         }
       })
       .withMessage('Password is not matching'),

@@ -1,0 +1,124 @@
+extends ./../../layouts/header.pug
+
+
+block title 
+        title= title 
+
+block css
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css")
+        link(rel="stylesheet", href="/css/home.css")
+
+
+
+
+block jsScript 
+        script(src='/js/home.js' defer)
+
+
+
+block body
+        #replayModal.modal.fade(tabindex='-1' role='dialog' area-labelledby='replayModalTitle' area-hidden='true')
+                .modal-dialog(role='document')
+                        .modal-content  
+                                .modal-header 
+                                        h5#replayModalTitle.modal-title Replay
+                                        button.btn.btn-light.close(type='button'
+                                        onclick="clearReplayData()" data-dismiss="modal" area-label='Close')
+                                                span(area-hidden='true') &times;
+                                .modal-body 
+                                - avatarURL = user.profileAvatar ? `/uploads/${user._id}/profile/${user.profileAvatar}` : `/uploads/profile/profile.png`
+                                .modal-footer 
+                                        .create-post 
+                                                .avatar_area 
+                                                        img(src= avatarURL , alt="")
+                                                .post-area 
+                                                        textarea#replayContent(placeholder="Write a Command")
+                                                        .image-container 
+                                                        .actions 
+                                                                label(for="replayImages")
+                                                                        i.fas.fa-image 
+                                                                input#replayImages(type="file" multiple="") 
+                                                                button.replayBtn(disabled='') Replay
+        main 
+                .left-container 
+                        .top 
+                                .logo_area
+                                        a.logo(href='/')
+                                                i.fa-solid.fa-heart 
+                                .menu-area
+                                        nav 
+                                                a.nav_link(href="/")
+                                                        span 
+                                                                i.fas.fa-home
+                                                                
+                                                        |Home 
+                                                a.nav_link(href="/explore")
+                                                        span 
+                                                                i.fas.fa-hashtag
+                                                                span.notify_box 2
+                                                        |Explore 
+                                                a.nav_link(href="/notifications")
+                                                        span 
+                                                                i.fas.fa-bell
+                                                                span.notify_box 2
+                                                        |Notifications 
+                                                a.nav_link(href="/messages")
+                                                        span 
+                                                                i.fas.fa-envelope
+                                                                span.notify_box 2
+                                                        |Messages 
+                                                a.nav_link(href="/bookmarks")
+                                                        span 
+                                                                i.fas.fa-bookmark
+                                                                
+                                                        |Bookmarks 
+                                                a.nav_link(href="/lists")
+                                                        span 
+                                                                i.fas.fa-book
+                                                                
+                                                        |Lists 
+                                                a.nav_link(href="/profile/" + user.username)
+                                                        span 
+                                                                i.fas.fa-user
+                                                                
+                                                        |Profile 
+                                                a.nav_link
+                                                        span 
+                                                                i.fas.fa-ellipsis-h
+                                                                
+                                                        |More 
+                                        .tweet_btn 
+                                                button Post
+                        .bottom
+                                .user_info 
+                                        .avatar 
+                                                img(src= avatarURL, alt="")
+                                        .info 
+                                                h4 #{user.firstName} #{user.lastName}
+                                                p @#{user.username}
+                                        i.fas.fa-ellipsis-h
+                                
+                .middle-container 
+                        .heading_area 
+                                h4 Latest  Post
+                                button 
+                                        i.fas.fa-star
+                        
+                        .create_post 
+                                .avatar_area
+                                        img(src=avatarURL, alt="") 
+                                .post_area
+
+                                        textarea#postArea(placeholder=" What's happing?")
+                                        .img_container
+                                        .action
+                                                label(for="postImg")
+                                                        i.fas.fa-image
+                                                input#postImg(type="file" , multiple='') 
+                                                button.create_post_btn(disabled='') Post
+                        .postContainer
+
+                .right-container 
+                        a(href="/logout") Logout
+        script. 
+                const user = !{userJs}

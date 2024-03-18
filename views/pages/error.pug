@@ -1,10 +1,16 @@
-extends .//../layouts/header.pug
+extends ../layouts/header.pug
 
 
 block title 
     title= title 
+block css
+        link(rel="stylesheet", href="/css/error.css")
 
 block body
-    h4= error .message 
-    h3= error.status 
-    p= error.stack  
+    .container
+        h2 #{error.status}
+        h3 Oops, nothing here...
+        p Please Check the URL
+        | Otherwise, 
+        a(href='./login') Click here
+        | to redirect to homepage.

@@ -2,6 +2,7 @@
 const createError = require('http-errors');
 //not Found handlers
 function notFoundHandler(req, res, next) {
+  res.locals.html = true;
   next(createError(404, 'Not Found'));
 }
 

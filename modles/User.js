@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Post = require('./Post');
 
 const userSchema = new mongoose.Schema(
   {
@@ -10,12 +11,12 @@ const userSchema = new mongoose.Schema(
     },
     lastName: {
       type: String,
-      minLength: 3,
+      minLength: 1,
       trim: true,
     },
     username: {
       type: String,
-      minLength: 6,
+      minLength: 1,
       required: true,
       unique: true,
       trim: true,
@@ -45,8 +46,51 @@ const userSchema = new mongoose.Schema(
 
     profileAvatar: {
       type: String,
-      required: true,
     },
+    profileCover: {
+      type: String,
+    },
+    status: {
+      type: String,
+      enum: ['unverified', 'verified', 'suspended'],
+      default: 'unverified',
+    },
+
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+
+        ref: 'Post',
+      },
+    ],
+    repost: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+
+        ref: 'Post',
+      },
+    ],
+    repost: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+
+        ref: 'Post',
+      },
+    ],
+    followers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+
+        ref: 'User',
+      },
+    ],
+    following: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+
+        ref: 'User',
+      },
+    ],
   },
   {
     timestamps: true,
